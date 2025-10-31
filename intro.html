@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可配置护航系统 - Galgame配置器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .hero {
+            text-align: center;
+            color: white;
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 20px 50px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            font-size: 1.5em;
+            font-weight: bold;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 60px;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .feature h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        
+        .feature p {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>🎮 可配置护航系统</h1>
+        <p>无需编写代码，轻松创建你的互动剧情</p>
+        
+        <a href="index.html" class="cta-button">开始配置 →</a>
+        
+        <div class="features">
+            <div class="feature">
+                <h3>📝 可视化编辑</h3>
+                <p>图形界面操作，所见即所得</p>
+            </div>
+            
+            <div class="feature">
+                <h3>🎯 多结局支持</h3>
+                <p>创建复杂的分支剧情</p>
+            </div>
+            
+            <div class="feature">
+                <h3>💝 好感度系统</h3>
+                <p>根据玩家选择改变关系</p>
+            </div>
+            
+            <div class="feature">
+                <h3>🔀 变量系统</h3>
+                <p>像真正的Galgame一样</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

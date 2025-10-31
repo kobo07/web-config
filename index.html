@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可配置galgame系统 - 可视化配置工具</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 可配置galgame系统 - Galgame配置器</h1>
+            <p class="subtitle">无需编写代码，轻松创建你的互动剧情</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="basic">基础设置</button>
+            <button class="tab-btn" data-tab="recruit">招降对话</button>
+            <button class="tab-btn" data-tab="dialogues">对话编辑</button>
+            <button class="tab-btn" data-tab="feedback">特殊对话</button>
+            <button class="tab-btn" data-tab="preview">预览&导出</button>
+        </div>
+
+        <!-- 基础设置 -->
+        <div class="tab-content active" id="basic">
+            <h2>基础设置</h2>
+            
+            <div class="form-group">
+                <label>护航名称</label>
+                <input type="text" id="escortName" value="护航" placeholder="例如：樱、雪、小美">
+                <small>这个名字会显示在所有对话前面</small>
+            </div>
+
+            <div class="form-group">
+                <label>对话模式</label>
+                <select id="dialogueMode">
+                    <option value="sequential">顺序播放</option>
+                    <option value="random">随机播放</option>
+                </select>
+                <small>顺序模式会按照你添加的顺序播放对话，随机模式会随机选择</small>
+            </div>
+
+            <div class="form-group">
+                <label>对话间隔（秒）</label>
+                <input type="number" id="dialogueInterval" value="-1" step="1">
+                <small>-1 = 连续模式（一个对话结束立即下一个），0以上 = 自动间隔</small>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="enableAffectionSystem">
+                    启用好感度系统
+                </label>
+                <small>如果关闭，将不会有好感度变化和背叛机制，纯剧情模式</small>
+            </div>
+        </div>
+
+        <!-- 招降对话 -->
+        <div class="tab-content" id="recruit">
+            <h2>招降对话设置</h2>
+            
+            <div class="form-group">
+                <label>敌人投降时说的话</label>
+                <input type="text" id="surrenderText" value="壮士饶命" placeholder="请不要杀我...">
+            </div>
+
+            <div class="form-group">
+                <label>收编选项文本</label>
+                <input type="text" id="recruitOption1" value="好性感的身材..不如？" placeholder="跟我走">
+            </div>
+
+            <div class="form-group">
+                <label>拒绝选项文本</label>
+                <input type="text" id="recruitOption2" value="吃大份去吧。" placeholder="离开">
+            </div>
+
+            <div class="form-group">
+                <label>接受收编后说的话</label>
+                <input type="text" id="acceptedText" value="谢谢老板不杀之恩，我愿追随左右！" placeholder="谢谢你">
+            </div>
+
+            <div class="form-group">
+                <label>拒绝收编后说的话</label>
+                <input type="text" id="rejectedText" value="再无话说，请速动手。" placeholder="好吧...">
+            </div>
+        </div>
+
+        <!-- 对话编辑 -->
+        <div class="tab-content" id="dialogues">
+            <h2>对话编辑</h2>
+            
+            <div class="dialogue-zones">
+                <div class="zone-header">
+                    <h3>对话区间列表</h3>
+                    <button class="btn btn-primary" onclick="addZone()">+ 添加区间</button>
+                </div>
+                <div id="zonesList"></div>
+            </div>
+
+            <div class="dialogue-editor" id="dialogueEditor" style="display: none;">
+                <h3>编辑对话</h3>
+                <div id="dialogueEditorContent"></div>
+            </div>
+        </div>
+
+        <!-- 特殊对话 -->
+        <div class="tab-content" id="feedback">
+            <h2>特殊对话设置</h2>
+            
+            <div class="form-group">
+                <label>护航死亡时玩家说的话</label>
+                <input type="text" id="escortDeathText" value="不！！！！！">
+            </div>
+
+            <div class="form-group">
+                <label>护航死亡选项1（继续）</label>
+                <input type="text" id="escortDeathOption1" value="我还想继续">
+            </div>
+
+            <div class="form-group">
+                <label>护航死亡选项2（放弃）</label>
+                <input type="text" id="escortDeathOption2" value="我心已被夺去，此生或再无悲喜。">
+            </div>
+
+            <h3>好感度系统相关（仅在启用好感度时有效）</h3>
+
+            <div class="form-group">
+                <label>对话用完时的文本</label>
+                <input type="text" id="noMoreDialogues" value="好像没什么好说的了...">
+            </div>
+
+            <div class="form-group">
+                <label>好感度满时的文本</label>
+                <input type="text" id="maxAffectionText" value="我好爱你，我真的好爱你。">
+            </div>
+
+            <div class="form-group">
+                <label>背叛时护航说的话</label>
+                <input type="text" id="betrayalEscortText" value="往日种种，你说的可是往日种种...">
+            </div>
+
+            <div class="form-group">
+                <label>背叛时玩家说的话</label>
+                <input type="text" id="betrayalPlayerText" value="护航我儿，为何反我！">
+            </div>
+
+            <div class="form-group">
+                <label>击杀背叛护航后的话</label>
+                <input type="text" id="killedBetrayerText" value="真是一对苦命鸳鸯啊。。。">
+            </div>
+        </div>
+
+        <!-- 预览导出 -->
+        <div class="tab-content" id="preview">
+            <h2>预览与导出</h2>
+            
+            <div class="preview-section">
+                <h3>JSON预览</h3>
+                <div class="json-preview" id="jsonPreview"></div>
+            </div>
+
+            <div class="export-section">
+                <button class="btn btn-primary btn-large" onclick="exportJSON()">📥 导出JSON文件</button>
+                <button class="btn btn-secondary btn-large" onclick="copyJSON()">📋 复制到剪贴板</button>
+            </div>
+
+            <div class="import-section">
+                <h3>导入配置</h3>
+                <input type="file" id="importFile" accept=".json" onchange="importJSON(event)">
+                <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">📤 从文件导入</button>
+            </div>
+
+            <div class="help-section">
+                <h3>使用说明</h3>
+                <ol>
+                    <li>在"基础设置"中配置护航名称和基本参数</li>
+                    <li>在"招降对话"中设置敌人投降时的对话</li>
+                    <li>在"对话编辑"中创建对话区间和具体对话内容</li>
+                    <li>在"特殊对话"中配置死亡、背叛等特殊情况的文本</li>
+                    <li>在"预览&导出"中查看最终配置并导出JSON文件</li>
+                    <li>将导出的JSON文件放入游戏的 <code>Mods/config/</code> 文件夹</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
